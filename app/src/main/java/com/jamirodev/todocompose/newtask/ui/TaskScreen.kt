@@ -1,16 +1,22 @@
 package com.jamirodev.todocompose.newtask.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -29,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.jamirodev.todocompose.newtask.ui.model.TaskModel
 
 @Composable
 fun TaskScreen(taskViewModel: TaskViewModel) {
@@ -41,6 +48,36 @@ fun TaskScreen(taskViewModel: TaskViewModel) {
             onDismiss = { taskViewModel.onDialogClosed() },
             onTaskAdded = { taskViewModel.onTaskCreated(it) })
         FabDialog(Modifier.align(Alignment.BottomEnd), taskViewModel)
+        TaskList(taskViewModel)
+    }
+}
+
+@Composable
+fun TaskList(taskViewModel: TaskViewModel) {
+    val myTask:List<TaskModel> = taskViewModel.task
+    LazyColumn {
+        items(myTask, key = {it.id}) {
+            ItemTask(taskModel = it , taskViewModel = taskViewModel )
+        }
+    }
+}
+
+@Composable
+fun ItemTask(taskModel: TaskModel, taskViewModel: TaskViewModel) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        border = BorderStroke(2.dp, Color.Black)
+    ) {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = taskModel.task, modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 6.dp)
+            )
+            Checkbox(checked = taskModel.selected, onCheckedChange = {taskViewModel.onCheckBoxSelected(taskModel)})
+        }
     }
 }
 
@@ -48,7 +85,7 @@ fun TaskScreen(taskViewModel: TaskViewModel) {
 fun FabDialog(modifier: Modifier, taskViewModel: TaskViewModel) {
     FloatingActionButton(
         onClick = {
-                  taskViewModel.onShowDialogClick()
+            taskViewModel.onShowDialogClick()
         },
         modifier = modifier
             .padding(16.dp)
@@ -87,6 +124,7 @@ fun AddTaskDialog(show: Boolean, onDismiss: () -> Unit, onTaskAdded: (String) ->
                 UseSpace(space = 16)
                 Button(onClick = {
                     onTaskAdded(myTask)
+                    myTask = ""
                 }, modifier = Modifier.fillMaxWidth()) {
                     Text(text = "Sed Task")
                 }
