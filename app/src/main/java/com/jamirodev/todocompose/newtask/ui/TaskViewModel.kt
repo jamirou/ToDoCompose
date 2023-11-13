@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModel
 import com.jamirodev.todocompose.newtask.ui.model.TaskModel
 import javax.inject.Inject
 
-class TaskViewModel @Inject constructor():ViewModel() {
+class TaskViewModel @Inject constructor() : ViewModel() {
 
     private val _showDialog = MutableLiveData<Boolean>()
-    val showDialog:LiveData<Boolean> = _showDialog
+    val showDialog: LiveData<Boolean> = _showDialog
 
     private val _task = mutableListOf<TaskModel>()
-    val task:List<TaskModel> = _task
+    val task: List<TaskModel> = _task
 
     fun onDialogClosed() {
         _showDialog.value = false
@@ -30,7 +30,10 @@ class TaskViewModel @Inject constructor():ViewModel() {
     }
 
     fun onCheckBoxSelected(taskModel: TaskModel) {
-
+        val index = _task.indexOf(taskModel)
+        _task[index] = _task[index].let {
+            it.copy(selected = !it.selected)
+        }
     }
 
 
