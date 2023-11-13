@@ -54,10 +54,10 @@ fun TaskScreen(taskViewModel: TaskViewModel) {
 
 @Composable
 fun TaskList(taskViewModel: TaskViewModel) {
-    val myTask:List<TaskModel> = taskViewModel.task
+    val myTask: List<TaskModel> = taskViewModel.task
     LazyColumn {
-        items(myTask, key = {it.id}) {
-            ItemTask(taskModel = it , taskViewModel = taskViewModel )
+        items(myTask, key = { it.id }) {
+            ItemTask(taskModel = it, taskViewModel = taskViewModel)
         }
     }
 }
@@ -76,7 +76,9 @@ fun ItemTask(taskModel: TaskModel, taskViewModel: TaskViewModel) {
                     .weight(1f)
                     .padding(horizontal = 6.dp)
             )
-            Checkbox(checked = taskModel.selected, onCheckedChange = {taskViewModel.onCheckBoxSelected(taskModel)})
+            Checkbox(
+                checked = taskModel.selected,
+                onCheckedChange = { taskViewModel.onCheckBoxSelected(taskModel) })
         }
     }
 }

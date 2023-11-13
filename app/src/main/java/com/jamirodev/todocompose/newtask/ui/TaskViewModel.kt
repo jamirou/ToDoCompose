@@ -1,6 +1,7 @@
 package com.jamirodev.todocompose.newtask.ui
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,7 @@ class TaskViewModel @Inject constructor() : ViewModel() {
     private val _showDialog = MutableLiveData<Boolean>()
     val showDialog: LiveData<Boolean> = _showDialog
 
-    private val _task = mutableListOf<TaskModel>()
+    private val _task = mutableStateListOf<TaskModel>()
     val task: List<TaskModel> = _task
 
     fun onDialogClosed() {
@@ -22,7 +23,6 @@ class TaskViewModel @Inject constructor() : ViewModel() {
     fun onTaskCreated(task: String) {
         _showDialog.value = false
         _task.add(TaskModel(task = task))
-        Log.i("Jamiro", task)
     }
 
     fun onShowDialogClick() {
