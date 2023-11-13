@@ -36,5 +36,10 @@ class TaskViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun onItemRemove(taskModel: TaskModel) {
+        val task = _task.find { it.id == taskModel.id }
+        _task.remove(task)
+    }
+
 
 }
