@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.jamirodev.todocompose.newtask.ui.TaskScreen
 import com.jamirodev.todocompose.newtask.ui.TaskViewModel
 import com.jamirodev.todocompose.ui.theme.ToDoComposeTheme
@@ -28,8 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-//                    TaskScreen(taskViewModel)
-                    TaskScreen()
+                    TaskScreen(taskViewModel)
                 }
             }
         }
