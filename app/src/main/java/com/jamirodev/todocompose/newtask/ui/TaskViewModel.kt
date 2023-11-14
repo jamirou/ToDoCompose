@@ -10,6 +10,7 @@ import com.jamirodev.todocompose.newtask.domain.AddTaskUseCase
 import com.jamirodev.todocompose.newtask.domain.GetTaskUseCase
 import com.jamirodev.todocompose.newtask.ui.UiStates.*
 import com.jamirodev.todocompose.newtask.ui.model.TaskModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class TaskViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
     getTaskUseCase: GetTaskUseCase
