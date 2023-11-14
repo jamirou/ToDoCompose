@@ -30,8 +30,8 @@ class TaskViewModel @Inject constructor(
     private val _showDialog = MutableLiveData<Boolean>()
     val showDialog: LiveData<Boolean> = _showDialog
 
-    private val _task = mutableStateListOf<TaskModel>()
-    val task: List<TaskModel> = _task
+//    private val _task = mutableStateListOf<TaskModel>()
+//    val task: List<TaskModel> = _task
 
     fun onDialogClosed() {
         _showDialog.value = false
@@ -39,7 +39,7 @@ class TaskViewModel @Inject constructor(
 
     fun onTaskCreated(task: String) {
         _showDialog.value = false
-        _task.add(TaskModel(task = task))
+
 
         viewModelScope.launch {
             addTaskUseCase(TaskModel(task = task))
@@ -51,16 +51,17 @@ class TaskViewModel @Inject constructor(
     }
 
     fun onCheckBoxSelected(taskModel: TaskModel) {
-        val index = _task.indexOf(taskModel)
-        _task[index] = _task[index].let {
-            it.copy(selected = !it.selected)
-        }
+//UPDATE CHECKBOX
+    //        val index = _task.indexOf(taskModel)
+//        _task[index] = _task[index].let {
+//            it.copy(selected = !it.selected)
+//        }
     }
 
     fun onItemRemove(taskModel: TaskModel) {
-        val task = _task.find { it.id == taskModel.id }
-        _task.remove(task)
+        //DELETE ITEM
+//        val task = _task.find { it.id == taskModel.id }
+//        _task.remove(task)
     }
-
 
 }
